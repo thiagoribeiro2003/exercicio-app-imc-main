@@ -6,6 +6,7 @@ import {
   TextInput,
   StyleSheet,
   Pressable,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 const App = () => {
@@ -26,6 +27,38 @@ const App = () => {
   const alturaDigitado = (alturaDigitado) => {
     setAltura(alturaDigitado);
     console.log(alturaDigitado);
+  };
+
+  const calcularImc = () => {
+    const imc = peso / (altura * altura);
+    const imcArredondado = parseFloat(imc.toFixed(2));
+
+    if (imc < 18.5) {
+      Alert.alert(
+        `Olá ${nome}`,
+        `Seu imc é ${imcArredondado}, portanto o resultado é considerado de magreza`
+      );
+    } else if (imc >= 18.5 && imc < 25) {
+      Alert.alert(
+        `Olá ${nome}`,
+        `Seu imc é ${imcArredondado}, portanto o resultado é considerado de normalidade`
+      );
+    } else if (imc >= 25 && imc < 30) {
+      Alert.alert(
+        `Olá ${nome}`,
+        `Seu imc é ${imcArredondado}, portanto o resultado é considerado de sobrepeso`
+      );
+    } else if (imc >= 30 && imc < 40) {
+      Alert.alert(
+        `Olá ${nome}`,
+        `Seu imc é ${imcArredondado}, portanto o resultado é considerado de obesidade`
+      );
+    } else if (imc >= 40) {
+      Alert.alert(
+        `Olá ${nome}`,
+        `Seu imc é ${imcArredondado}, portanto o resultado é considerado de obesidade grave`
+      );
+    }
   };
 
   return (
@@ -65,7 +98,7 @@ const App = () => {
           </View>
 
           <View>
-            <Pressable style={estilos.botao}>
+            <Pressable style={estilos.botao} onPress={calcularImc}>
               <Text style={estilos.textoBotao}>Calcular IMC</Text>
             </Pressable>
           </View>
